@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+    <script type="text/javascript">
+
+      var top_100 = ["all", "call", "had", "to", "his", "they", "now", "like", "out", "see", "are", "what", "for", "be", "we", "who", "on", "about", "of", "could", "or", "your", "from", "there", "been", "that", "but", "with", "than", "he", "this", "up", "will", "can", "my", "and", "is", "it", "an", "as", "at", "in", "if", "when", "how", "you", "a", "time", "the"];
+
+      var top_1000 = ["melody", "still", "believe", "better", "pretty", "smile", "real", "bread", "bar", "quick", "old", "crowd", "star", "while", "got", "get", "drink", "never", "free", "here", "sing", "yes", "place", "love", "son", "put", "next", "friend", "complete", "mine", "me", "us", "nine", "say", "ran", "good", "sit", "rather", "song", "life", "play", "sure", "knew", "man", "wife", "light", "well", "face"];
+
+      var template = "<li>{{word}}</li>";
+
+      window.onload = function() {
+        var top_100_words_list = document.getElementById("top_100_words");
+        var top_1000_words_list = document.getElementById("top_1000_words");
+        for(i in top_100) {
+          var output = Mustache.render(template, { 'word': top_100[i] });
+          top_100_words_list.innerHTML += output;
+        };
+        for(i in top_1000) {
+          var output = Mustache.render(template, { 'word': top_1000[i] });
+          top_1000_words_list.innerHTML += output;
+        };
+      };
+    </script>
+    <style>
+    .sentence {
+      height: 20px;
+    }
+    table {
+      width: 210mm;
+    }
+    .sentence {
+      width: 30%;
+      vertical-align: top;
+      margin-top: 20px;
+    }
+    .translation {
+      width: 70%;
+      vertical-align: top;
+    }
+    .translation p {
+      width: 100%;
+      border-bottom: 1px dotted #000;
+      text-decoration: none;
+    }
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    @media print {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <h2>Top 100 words</h2>
+    <ul id="top_100_words">
+    </ul>
+    <h2>Top 1000 words</h2>
+    <ul id="top_1000_words">
+    </ul>
+  </body>
+</html>
