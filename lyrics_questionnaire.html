@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
+    <script type="text/javascript">
+      var sentences = ["It's nine o'clock on a Saturday\n", "The regular crowd shuffles in\n", "There's an old man sitting next to me\n", "Making love to his tonic and gin\n", "He says, \"Son can you play me a memory\n", "I'm not really sure how it goes\n", "But it's sad and it's sweet\n", "And I knew it complete\n", "When I wore a younger man's clothes.\"Sing us a song you're the piano man\n", "Sing us a song tonight\n", "Well we're all in the mood for a melody\n", "And you've got us feeling alright\n", "Now John at the bar is a friend of mine\n", "He gets me my drinks for free\n", "And he's quick with a joke or to light up your smoke\n", "But there's someplace that he'd rather be\n", "He says, \"Bill, I believe this is killing me.\"As a smile ran away from his face\n", "\"Well, I'm sure that I could be a movie star\n", "If I could get out of this place.\"Now Paul is a real estate novelist\n", "Who never had time for a wife\n", "And he's talking with Davy, who's still in the Navy\n", "And probably will be for life\n", "And the waitress is practicing politics\n", "As the businessmen slowly get stoned\n", "Yes they're sharing a drink they call loneliness\n", "But it's better than drinking alone\n", "Sing us a song you're the piano man\n", "Sing us a song tonight\n", "Well we're all in the mood for a melody\n", "And you've got us feeling alright\n", "It's a pretty good crowd for a Saturday\n", "And the manager gives me a smile\n", "'Cause he knows that it's me they've been coming to see\n", "To forget about life for a while\n", "And the piano it sounds like a carnival\n", "And the microphone smells like a beer\n", "And they sit at the bar and put bread in my jar\n", "And say, \"Man what are you doing here?\"Sing us a song you're the piano man\n", "Sing us a song tonight\n", "Well we're all in the mood for a melody\n", "And you've got us feeling alright\n"];
+
+      var template = "<tr><td class='sentence'>{{sentence}}</td><td class='translation'><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></td></tr>";
+
+      window.onload = function() {
+        var table = document.getElementById("questionnaire");
+        for(i in sentences) {
+          var output = Mustache.render(template, { 'sentence': sentences[i] });
+          table.innerHTML += output;
+        };
+      };
+    </script>
+    <style>
+    .sentence {
+      height: 20px;
+    }
+    table {
+      width: 210mm;
+    }
+    .sentence {
+      width: 30%;
+      vertical-align: top;
+      margin-top: 20px;
+    }
+    .translation {
+      width: 70%;
+      vertical-align: top;
+    }
+    .translation p {
+      width: 100%;
+      border-bottom: 1px dotted #000;
+      text-decoration: none;
+    }
+    @page {
+      size: A4;
+      margin: 0;
+    }
+    @media print {
+      html, body {
+        width: 210mm;
+        height: 297mm;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <table id="questionnaire"></table>
+  </body>
+</html>
