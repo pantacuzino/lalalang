@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <meta charset="UTF-8" />
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mustache.js/2.2.1/mustache.min.js"></script>
     <script type="text/javascript">
       var player;
       var tag = document.createElement('script');
@@ -17,32 +19,62 @@
         });
       };
 
+      var template = '\
+        <div class="line"> \
+          <a href="#" class="duration">{{duration}}</a> \
+          <p class="verse" style="display: none;">{{verse}}</p> \
+          <input class="input" type="text" /> \
+          <a href="#" class="check">Check</a> \
+        </div>';
+
+      var lyrics = [
+        ["0-10", "Mal parece que solo me quedé"],
+        ["10-20", "Y fue pura todita tu mentira"],
+        ["20-30", "Que maldita mala suerte la mía"],
+        ["30-40", "Que aquel día te encontré"]
+      ];
+
       window.onload = function() {
-        var line = document.getElementById('1line');
-        line.onclick = function(event) {
-          var times = event.target.innerHTML.split("-");
-          var startTime = times[0];
-          var endTime = times[1];
-          // Start to play from the beginning of the line
-          player.seekTo(startTime);
-          // Ensure the line plays in a loop
-          if(window.interval) {
-            clearInterval(window.interval);
-          };
-          window.interval = window.setInterval(function() {
-            if(player.getCurrentTime() > endTime) {
-              player.seekTo(startTime);
-            };
-          }, 100);
+        var lyricsDiv = document.getElementById("lyrics");
+        for(verse in lyrics) {
+          var rendered = Mustache.render(template, {
+            'duration': lyrics[verse][0],
+            'verse': lyrics[verse][1]
+          });
+          lyricsDiv.innerHTML += rendered;
         };
-        document.getElementById('check').onclick = function() {
-          var verse = document.getElementById("1line-verse");
-          var input = document.getElementById("1line-input");
-          if(verse.innerHTML.toLowerCase() == input.value.toLowerCase()) {
-            alert('Great!')
-          } else {
-            verse.style.display = "block";
-          };
+
+        var lines = document.getElementsByClassName('line');
+        for (var i = 0; i < lines.length; i++) {
+          lines[i].addEventListener('click', function(event) {
+            var times = event.target.innerHTML.split("-");
+            var startTime = times[0];
+            var endTime = times[1];
+            // Start to play from the beginning of the line
+            player.seekTo(startTime);
+            // Ensure the line plays in a loop
+            if(window.interval) {
+              clearInterval(window.interval);
+            };
+            window.interval = window.setInterval(function() {
+              if(player.getCurrentTime() > endTime) {
+                player.seekTo(startTime);
+              };
+            }, 100);
+          }, false);
+        };
+
+        var linesCheck = document.getElementsByClassName('check');
+        for (var i = 0; i < linesCheck.length; i++) {
+          linesCheck[i].addEventListener('click', function(event) {
+            var verse = event.target.parentNode.getElementsByClassName("verse")[0];
+            var input = event.target.parentNode.getElementsByClassName("input")[0];
+            if(verse.innerHTML.toLowerCase() == input.value.toLowerCase()) {
+              alert('Great!')
+            } else {
+              verse.style.display = "block";
+            };
+          }, false);
         };
       };
     </script>
@@ -50,10 +82,7 @@
   <body>
     <div id="player">
     </div>
-    <div>
-      <a href="#" id="1line">30-40</a>
-      <p id="1line-verse" style="display: none;">Tengo la camisa negra</p>
-      <input id="1line-input" type="text" /><a href="#" id="check">Check</a>
+    <div id="lyrics">
     </div>
   </body>
 </html>
