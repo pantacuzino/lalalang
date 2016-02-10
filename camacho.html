@@ -36,6 +36,12 @@
           if(window.interval) {
             clearInterval(window.interval);
           };
+          if(player.getPlayerState() != YT.PlayerState.PLAYING) {
+            player.playVideo();
+          };
+          // Start to play from the beginning of the line
+          player.seekTo(startTime);
+          // Ensure the line plays in a loop
           window.interval = setInterval(function() {
             if(player.getCurrentTime() > (startTime + duration)) {
               player.seekTo(startTime);
