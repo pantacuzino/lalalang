@@ -31,8 +31,10 @@
 
       window.onload = function() {
         document.getElementById("playLoop").onclick = function() {
-          var startTime = document.getElementById("startTime");
-          var duration = document.getElementById("duration");
+          var startTime = document.getElementById("startTime").value || 0;
+          var duration = document.getElementById("duration").value || 10;
+          console.log(startTime);
+          console.log(duration);
           if(window.interval) {
             clearInterval(window.interval);
           };
