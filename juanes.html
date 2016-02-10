@@ -20,8 +20,9 @@
       window.onload = function() {
         var line = document.getElementById('1line');
         line.onclick = function(event) {
-          var startTime = event.target.getAttribute('start');
-          var endTime = event.target.getAttribute('end');
+          var times = event.target.innerHTML.split("-");
+          var startTime = times[0];
+          var endTime = times[1];
           // Start to play from the beginning of the line
           player.seekTo(startTime);
           // Ensure the line plays in a loop
@@ -34,15 +35,25 @@
             };
           }, 100);
         };
+        document.getElementById('check').onclick = function() {
+          var verse = document.getElementById("1line-verse");
+          var input = document.getElementById("1line-input");
+          if(verse.innerHTML.toLowerCase() == input.value.toLowerCase()) {
+            alert('Great!')
+          } else {
+            verse.style.display = "block";
+          };
+        };
       };
     </script>
   </head>
   <body>
     <div id="player">
     </div>
-    <a href="#" id="1line" start="30" end="40">1 line</a>
-    2 line
-    3 line
-    4 line
+    <div>
+      <a href="#" id="1line">30-40</a>
+      <p id="1line-verse" style="display: none;">Tengo la camisa negra</p>
+      <input id="1line-input" type="text" /><a href="#" id="check">Check</a>
+    </div>
   </body>
 </html>
