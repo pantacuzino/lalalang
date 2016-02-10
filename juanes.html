@@ -44,7 +44,7 @@
           lyricsDiv.innerHTML += rendered;
         };
 
-        var lines = document.getElementsByClassName('line');
+        var lines = document.getElementsByClassName('duration');
         for (var i = 0; i < lines.length; i++) {
           lines[i].addEventListener('click', function(event) {
             var times = event.target.innerHTML.split("-");
