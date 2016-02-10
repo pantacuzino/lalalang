@@ -31,15 +31,13 @@
 
       window.onload = function() {
         document.getElementById("playLoop").onclick = function() {
-          var startTime = document.getElementById("startTime").value || 0;
-          var duration = document.getElementById("duration").value || 10;
-          console.log(startTime);
-          console.log(duration);
+          var startTime = parseInt(document.getElementById("startTime").value || 0);
+          var duration = parseInt(document.getElementById("duration").value || 10);
           if(window.interval) {
             clearInterval(window.interval);
           };
           window.interval = setInterval(function() {
-            if(player.getCurrentTime() > startTime + duration) {
+            if(player.getCurrentTime() > (startTime + duration)) {
               player.seekTo(startTime);
             };
           }, 100);
